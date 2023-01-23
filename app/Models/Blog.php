@@ -18,4 +18,8 @@ class Blog extends Model
     protected $casts = [
         'published_at' => 'datetime'
     ];
+
+    public function publisher() {
+        return $this->belongsTo(User::class, 'publisher_id');
+    }
 }
