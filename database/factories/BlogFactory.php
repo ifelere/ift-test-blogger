@@ -9,6 +9,8 @@ use Illuminate\Support\Carbon;
 
 use Illuminate\Support\Arr;
 
+use Illuminate\Support\Str;
+
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Blog>
  */
@@ -22,18 +24,22 @@ class BlogFactory extends Factory
      */
     public function definition()
     {
+        $title = fake()->words(10, true);
         return [
-            'title' => fake()->words(3, true),
+            'title' => $title,
             'descripption' => fake()->sentences(10, true),
             'published_at' => Carbon::now()->subDays(random_int(2, 4)),
-            'publisher_id' => 0
+            'publisher_id' => 0,
+            'slug' => Str::slug($title)
         ];
     }
 
     public function publishedBy() {
        return $this->state(function ($attributes) {
+            $title = fake()->words(10, true);
             return [
-                'title' => fake()->words(3, true),
+                'title' => $title,
+                'slug' => Str::slug($title),
                 'descripption' => fake()->sentences(10, true),
                 'published_at' => Arr::get($attributes, 'published_at', Carbon::now()->subDays(random_int(2, 4))),
                 'publisher_id' => Arr::get($attributes, 'user_id', Arr::get($attributes, 'publisher_id')),
