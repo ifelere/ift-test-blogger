@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('description');
             $table->dateTime('published_at');
             $table->index(['title', 'published_at']);
+            $table->integer('publisher_id')->unsigned()->index();
         });
     }
 
