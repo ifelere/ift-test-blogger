@@ -27,8 +27,9 @@ class BlogRepository {
      * Search for blogs that will be scoped to current user if logged in and automatically apply request filter and sorting
      * @return QueryBuilder
      */
-    public function findAll() {
-        $query = Blog::with(['publisher']);
+    public function findAll($withEagerLoads = false) {
+        $query =$withEagerLoads ? Blog::with(['publisher']) : (new Blog())->newQuery();
+        
         if (Auth::check()) {
             $query = $query->publishedBy(Auth::id());
         }
@@ -61,8 +62,8 @@ class BlogRepository {
      * Finds a blog by id and ensures that it is tied to user session if it exists
      * @return Blog
      */
-    public function find($id): ?Blog {
-        $query = Blog::with(['publisher']);
+    public function find($id, $withEagerLoads = false): ?Blog {
+        $query = $withEagerLoads ? Blog::with(['publisher']) : (new Blog())->newQuery();
         if (Auth::check()) {
             $query = $query->publishedBy(Auth::id());
         }
