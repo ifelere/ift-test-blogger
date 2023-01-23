@@ -69,4 +69,12 @@ class BlogRepository {
         return $query->where('id', $id)->firstOrFail();
     }
 
+    public function findBySlug($id): ?Blog {
+        $query = Blog::with(['publisher']);
+        if (Auth::check()) {
+            $query = $query->publishedBy(Auth::id());
+        }
+        return $query->where('slug', 'like', $id)->firstOrFail();
+    }
+
 }
