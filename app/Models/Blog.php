@@ -22,4 +22,8 @@ class Blog extends Model
     public function publisher() {
         return $this->belongsTo(User::class, 'publisher_id');
     }
+
+    public function scopePublishedBy($builder, $id) {
+        return $builder->where('publisher_id', $id);
+    }
 }
