@@ -5,14 +5,14 @@ namespace Tests\Browser\Pages;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\Page;
 
-class WelcomePage extends Page
+class DashboardPage extends Page
 {
     /**
      * Get the URL for the page.
      */
     public function url(): string
     {
-        return '/';
+        return '/dashboard';
     }
 
     /**
@@ -21,9 +21,9 @@ class WelcomePage extends Page
     public function assert(Browser $browser): void
     {
         $browser->assertPathIs($this->url())
-        ->assertVisible('@central_blogs')
-        ->assertVisible('@sidebar_blogs');
-    
+                    ->assertVisible('@add_link')
+                    ->assertVisible('@central_blogs')
+                    ->assertVisible('@sidebar_blogs');
     }
 
     /**
@@ -34,6 +34,7 @@ class WelcomePage extends Page
     public function elements(): array
     {
         return [
+            '@add_link' => 'a.add-blog',
             '@central_blogs' => 'div > div.blogs-central-list',
             '@sidebar_blogs' => 'div > ul.sidebar-blog-list'
         ];

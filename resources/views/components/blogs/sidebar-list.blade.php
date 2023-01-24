@@ -3,9 +3,9 @@
 @endphp
 @unless ($blogs->isEmpty()) 
 <div class="pl-4 pt-4 md:rounded-md bg-stone-400 pr-2">
-    <ul class="sidebar-blog-list">
+    <ul class="sidebar-blog-list divide-y divide-slate-600">
         @foreach ($blogs as $blog)
-            <li>
+            <li class="mb-2">
                 <a class="block" href="#">
                     {{ Str::limit($blog->title, 70, '...') }} 
                     <em class="text-gray-700 ml-4">

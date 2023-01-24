@@ -28,7 +28,7 @@
             </svg>
         </x-primary-button>
     </form>
-        <div class="blogs-central-list divide-y   divide-gray-600">
+        <div class="grid grid-cols-1 gap-y-2 blogs-central-list divide-y   divide-gray-600">
             @foreach ($blogs as $blog)
             <a href="#" class="block cursor-pointer">
             <div>
