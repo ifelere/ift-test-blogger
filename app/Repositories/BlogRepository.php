@@ -87,4 +87,13 @@ class BlogRepository {
         return $query->where('slug', 'like', $id)->firstOrFail();
     }
 
+    public function getStats() {
+        return Blog::publishedBy(Auth::id())
+         ->selectRaw(implode(',', [
+            'count(*) as number_of_blogs',
+            'max(published_at) as latest_publish_date',
+            'min(published_at) as earliest_publish_date',
+         ]))->get();
+    }
+
 }
