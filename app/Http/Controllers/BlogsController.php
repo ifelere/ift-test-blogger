@@ -18,26 +18,7 @@ class BlogsController extends Controller
         return view('screens.blogs.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+   
 
     /**
      * Display the specified resource.
@@ -47,40 +28,13 @@ class BlogsController extends Controller
      */
     public function show($id)
     {
-        //
+        if (preg_match('/^\d+$/', $id)) {
+            $blog = Blog::with(['publisher'])->findOrFail($id);
+            return view('screens.blogs.show', ['blog' => $blog]);    
+        }
+        $blog = Blog::with(['publisher'])->where('slug', 'like', $id)->firstOrFail();
+        return view('screens.blogs.show', ['blog' => $blog]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   
 }
