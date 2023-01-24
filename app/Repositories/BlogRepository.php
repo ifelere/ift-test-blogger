@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Blog;
-
+use Exception;
 use Illuminate\Support\Arr;
 
 /**
@@ -95,6 +95,9 @@ class BlogRepository {
      * Returns a record of object having number_of_blogs, latest_publish_date and earliest_publish_date attributes
      */
     public function getStats() {
+        if (!Auth::check()) {
+            throw new Exception('Cannot be called on guest users', 422);
+        }
         return Blog::publishedBy(Auth::id())
          ->selectRaw(implode(',', [
             'count(*) as number_of_blogs',
