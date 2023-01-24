@@ -79,6 +79,9 @@ class BlogRepository {
         return $query->where('id', $id)->firstOrFail();
     }
 
+    /**
+     * Looks for a glub given it's slug
+     * */
     public function findBySlug($id): ?Blog {
         $query = Blog::with(['publisher']);
         if (Auth::check()) {
@@ -87,13 +90,17 @@ class BlogRepository {
         return $query->where('slug', 'like', $id)->firstOrFail();
     }
 
+    /**
+     * Gets a stat record of blogs for a user
+     * Returns a record of object having number_of_blogs, latest_publish_date and earliest_publish_date attributes
+     */
     public function getStats() {
         return Blog::publishedBy(Auth::id())
          ->selectRaw(implode(',', [
             'count(*) as number_of_blogs',
             'max(published_at) as latest_publish_date',
             'min(published_at) as earliest_publish_date',
-         ]))->get();
+         ]))->get()->first();
     }
 
 }
