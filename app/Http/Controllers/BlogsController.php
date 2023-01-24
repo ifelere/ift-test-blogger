@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use Illuminate\Http\Request;
 
 class BlogsController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +15,7 @@ class BlogsController extends Controller
      */
     public function index()
     {
-        //
+        return view('screens.blogs.index');
     }
 
     /**
