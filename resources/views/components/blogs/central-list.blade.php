@@ -20,7 +20,7 @@
         </div>
     </div>
     @else
-        <x-search-form :url="{{ route($searchRoute) }}"></x-search-form>
+        <x-search-form :url="route($searchRoute)"></x-search-form>
         <div class="grid grid-cols-1 gap-y-2 blogs-central-list divide-y   divide-gray-600">
             @foreach ($blogs as $blog)
             <a href="{{ route($blogRoute, $blog) }}" class="block cursor-pointer">

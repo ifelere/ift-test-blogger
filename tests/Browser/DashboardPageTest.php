@@ -16,6 +16,8 @@ class DashboardPageTest extends DuskTestCase
     public function testVisitDashboardShowsOnlyBlogsWithoutAuthorText(): void
     {
         $this->browse(function (Browser $browser) {
+            $user = User::whereHas('blogs')->first();
+            $browser->loginAs($user);
             $browser->visit(new DashboardPage())
                         ->assertDontSee('Author');
         });
