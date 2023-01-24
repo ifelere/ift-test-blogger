@@ -27,20 +27,29 @@ class BlogRepository {
      * Search for blogs that will be scoped to current user if logged in and automatically apply request filter and sorting
      * @return QueryBuilder
      */
-    public function findAll($withEagerLoads = false) {
+    public function findAll($withEagerLoads = false, $filter = TRUE) {
         $query =$withEagerLoads ? Blog::with(['publisher']) : (new Blog())->newQuery();
-        
+
         if (Auth::check()) {
             $query = $query->publishedBy(Auth::id());
         }
-        if (!empty($this->request->input('q'))) {
-            $term = $this->request->input('q');
-            $query = $query->where('title', 'like', "%$term%");
+        if ($filter) {
+            if (!empty($this->request->input('q'))) {
+                $term = $this->request->input('q');
+                $query = $query->where('title', 'like', "%$term%");
+            }
+    
+            foreach (['from_date' => '>=', 'to_date' => '<='] as $attr => $op) {
+                if ($this->request->has($attr)) {
+                    $query = $query->where('created_at', $op, $this->request->input($attr));
+                }
+            }
         }
-
         // Allow sorting with atttibutes that aliases of db columns
 
         $sort = $this->request->input('sort', 'created desc');
+
+
 
         $attribute_aliases = [
             'created' => 'created_at',
