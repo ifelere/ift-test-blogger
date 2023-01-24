@@ -6,7 +6,7 @@
     <ul class="sidebar-blog-list divide-y divide-slate-600">
         @foreach ($blogs as $blog)
             <li class="mb-2">
-                <a class="block" href="#">
+                <a class="block" href="{{ route($blogRoute, $blog) }}">
                     {{ Str::limit($blog->title, 70, '...') }} 
                     <em class="text-gray-700 ml-4">
                         {{ $blog->published_at->format('D, M dS, Y') }}

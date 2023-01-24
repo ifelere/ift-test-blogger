@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 class SidebarList extends Component
 {
 
+    public $blogRoute;
+    public $blogs;
     private $repository;
 
     /**
@@ -20,9 +22,10 @@ class SidebarList extends Component
      *
      * @return void
      */
-    public function __construct(BlogRepository $repository)
+    public function __construct(BlogRepository $repository, $blogRoute)
     {
         $this->repository = $repository;
+        $this->blogRoute = $blogRoute;
     }
 
     /**
@@ -32,14 +35,12 @@ class SidebarList extends Component
      */
     public function render()
     {
-        $authenticated = Auth::check();
-
         // Always use 'latest' sorting for this list and ignre use-supplied sort key
 
-        $blogs = $this->repository->findAll(false, false)
+        $this->blogs = $this->repository->findAll(false, false)
             ->reorder('created_at', 'desc')
             ->paginate(10);
 
-        return view('components.blogs.sidebar-list',  ['blogs' => $blogs]);
+        return view('components.blogs.sidebar-list');
     }
 }
