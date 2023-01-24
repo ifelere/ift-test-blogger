@@ -9,8 +9,9 @@ use Tests\DuskTestCase;
 use App\Models\User;
 use Tests\Browser\Pages\AdminBlogsPage;
 use Tests\Browser\Pages\NewBlogPage;
+use App\Models\Blog;
 
-class TestBlogsPage extends DuskTestCase
+class BlogsPageTest extends DuskTestCase
 {
     /**
      * A Dusk test example.
@@ -20,25 +21,25 @@ class TestBlogsPage extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $blog = Blog::first();
             $browser->visit(new GuestBlogsPage())
-                    ->openBog($blog);
+                    ->openBlog($blog);
         });
     }
 
     public function testCanVisitAdminBlogsPage(): void {
         $this->browse(function (Browser $browser) {
             $user = User::whereHas('blogs')->first();
-            $this->loginAs($user);
+            $browser->loginAs($user);
             $blog = $user->blogs()->first();
-            $brower->visit(new AdminBlogsPage())
-                    ->openBog($blog);
+            $browser->visit(new AdminBlogsPage())
+                    ->openBlog($blog);
         });
     }
 
     public function testCanVisitNewBlogPageWithValidationError(): void {
         $this->browse(function (Browser $browser) {
             $user = User::whereHas('blogs')->first();
-            $this->loginAs($user);
-            $brower->visit(new NewBlogPage())
+            $browser->loginAs($user);
+            $browser->visit(new NewBlogPage())
                     ->submitWithValidationErrors();
         });
     }
@@ -47,9 +48,8 @@ class TestBlogsPage extends DuskTestCase
     public function testCanVisitNewBlogPageWithNoValidationError(): void {
         $this->browse(function (Browser $browser) {
             $user = User::whereHas('blogs')->first();
-            $originalCount = Blog::count();
-            $this->loginAs($user);
-            $brower->visit(new NewBlogPage())
+            $browser->loginAs($user);
+            $browser->visit(new NewBlogPage())
                     ->submitSuccessfully();
         });
     }

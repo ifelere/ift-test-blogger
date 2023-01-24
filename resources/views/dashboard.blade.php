@@ -1,6 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
         <x-blogs.stats></x-blogs.stats>
+        <div class="text-right pr-4">
+            <a class="add-blog" href="{{ route('admin.blogs.create') }}">
+                New Blog
+            </a>
+        </div>
     </x-slot>
     <div class="md:flex flex-row dark:text-white">
         <div class="md:w-2/3 md:pr-4">

@@ -26,7 +26,7 @@ class Stats extends Component
     public function render()
     {
         return view('components.blogs.stats', [
-            'stats' => $this->repository->getStats()
+            'stat' => $this->repository->getStats()
         ]);
     }
 }

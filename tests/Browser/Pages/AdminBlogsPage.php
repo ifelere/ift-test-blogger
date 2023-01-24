@@ -24,7 +24,7 @@ class AdminBlogsPage extends Page
             ->seeLink('Add');
     }
 
-    public function openBlog(Browser $brower, $blog) {
+    public function openBlog(Browser $browser, $blog) {
         return $browser->canSeeIn('@link', $blog->title)
                 ->with('@container', function ($el) use ($blog) {
                     $el->clickLink($blog->title);

@@ -1,5 +1,5 @@
 
-@unless (empty($stats->number_of_blogs))
+@unless (empty($stat->number_of_blogs))
 <div class="bg-white p-4 w-full">
     <h4 class="text-center border-b border-slate-700 mb-4">
         Publish Stats
