@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             Blog::factory()->count(random_int(10, 20))
             ->state(function (array $attributes, User $user) {
                 return ['publisher_id', $user->id];
-            }), 'blogs')
+            }))
             ->create();
     }
 }

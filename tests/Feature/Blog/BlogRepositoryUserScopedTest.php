@@ -8,8 +8,8 @@ use function PHPUnit\Framework\assertTrue;
 
 use App\Models\User;
 
-beforeAll(function () {
-    Artisan::call('db:seed');
+beforeEach(function () {
+    $this->seed();
 });
 
 test('as guest repository returns blogs from any user', function () {

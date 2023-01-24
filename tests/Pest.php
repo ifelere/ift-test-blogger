@@ -3,6 +3,17 @@
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+
+use Tests\DuskTestCase;
+
+/**
+ * Integrated Laravel Dusk
+ */
+ 
+uses(DuskTestCase::class)->in('Browser');
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Test Case

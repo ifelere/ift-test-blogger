@@ -21,8 +21,8 @@ class WelcomePage extends Page
     public function assert(Browser $browser): void
     {
         $browser->assertPathIs($this->url())
-        ->assertSee('@central-blogs')
-        ->assertSee('@sidebar-blogs');
+        ->assertSee('@central_blogs')
+        ->assertSee('@sidebar_blogs');
     
     }
 
@@ -34,8 +34,8 @@ class WelcomePage extends Page
     public function elements(): array
     {
         return [
-            '@central-blogs' => '.blogs-central-list',
-            '@sidebar-blogs' => '.sidebar-blog-list'
+            '@central_blogs' => 'div > div.blogs-central-list',
+            '@sidebar_blogs' => 'div > ul.sidebar-blog-list'
         ];
     }
 }
