@@ -22,7 +22,10 @@ class WelcomePage extends Page
     {
         $browser->assertPathIs($this->url())
         ->assertVisible('@central_blogs')
-        ->assertVisible('@sidebar_blogs');
+        ->assertVisible('@sidebar_blogs')
+        ->assertVisible('@central_blogs_anchor')
+        ->assertVisible('@sidebar_blogs_anchor');
+        
     
     }
 
@@ -35,7 +38,9 @@ class WelcomePage extends Page
     {
         return [
             '@central_blogs' => 'div > div.blogs-central-list',
-            '@sidebar_blogs' => 'div > ul.sidebar-blog-list'
+            '@sidebar_blogs' => 'div > ul.sidebar-blog-list',
+            '@central_blogs_anchor' => 'div > div.blogs-central-list a',
+            '@sidebar_blogs_anchor' => 'div > ul.sidebar-blog-list a',
         ];
     }
 }

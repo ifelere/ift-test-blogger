@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class CentralList extends Component
 {
    
-    public $searchUrl;
+    public $searchRoute;
     public $blogRoute;
     public $blogs;
     private $repository;
@@ -19,11 +19,11 @@ class CentralList extends Component
      *
      * @return void
      */
-    public function __construct(BlogRepository $repository, $blogRoute, $searchUrl)
+    public function __construct(BlogRepository $repository, $blogRoute, $searchRoute)
     {
         $this->repository = $repository;
         $this->blogRoute = $blogRoute;
-        $this->searchUrl = $searchUrl;
+        $this->searchRoute = $searchRoute;
     }
 
     /**

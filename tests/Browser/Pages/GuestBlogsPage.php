@@ -5,14 +5,14 @@ namespace Tests\Browser\Pages;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\Page;
 
-class DashboardPage extends Page
+class GuestBlogsPage extends Page
 {
     /**
      * Get the URL for the page.
      */
     public function url(): string
     {
-        return '/dashboard';
+        return '/blogs';
     }
 
     /**
@@ -20,10 +20,7 @@ class DashboardPage extends Page
      */
     public function assert(Browser $browser): void
     {
-        $browser->assertPathIs($this->url())
-                    ->assertVisible('@add_link')
-                    ->assertVisible('@central_blogs')
-                    ->assertVisible('@sidebar_blogs');
+        $browser->assertPathIs($this->url());
     }
 
     /**
@@ -34,11 +31,17 @@ class DashboardPage extends Page
     public function elements(): array
     {
         return [
-            '@add_link' => 'a.add-blog',
             '@central_blogs' => 'div > div.blogs-central-list',
             '@sidebar_blogs' => 'div > ul.sidebar-blog-list',
             '@central_blogs_anchor' => 'div > div.blogs-central-list a',
             '@sidebar_blogs_anchor' => 'div > ul.sidebar-blog-list a',
         ];
+    }
+
+    public function openBlog(Browser $browser, $blog) {
+        return $browser->assertSeeIn('@central_blogs_anchor', $blog->title)
+        ->with('@central_blogs', function ($el) use ($blog) {
+            $el->clickLink($blog->title);
+        })->on(new BlogDetailPage($blog));
     }
 }
