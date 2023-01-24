@@ -17,7 +17,7 @@ test('gets stats from report', function () {
 
     $repo = app(BlogRepository::class);
 
-    $expected_blog_count = $user->blogs()-count();
+    $expected_blog_count = $user->blogs()->count();
 
     $stats = $repo->getStats();
 
@@ -25,3 +25,9 @@ test('gets stats from report', function () {
 
     assertTrue($stats->number_of_blogs == $expected_blog_count, 'Number of blogs must same as from direct user relation count');
 });
+
+
+test('get stats fails for guest users', function () {
+    $repo = app(BlogRepository::class);
+    $repo->getStats();
+})->throws(Exception::class);
