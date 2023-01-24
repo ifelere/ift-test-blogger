@@ -32,12 +32,18 @@
             @foreach ($blogs as $blog)
             <a href="#" class="block cursor-pointer">
             <div>
-                <div class="{{ ift_generate_html_class(['w-full', 'h-[100px]' => !$loop->first, 'h-[150px]' => $loop->first, 'bg-cyan-800' => $loop->even, 'bg-emerald-600' => $loop->add]) }}">
+                <div @class([
+                    'w-full', 'h-[100px]' => !$loop->first,
+                     'h-[150px]' => $loop->first,
+                      'bg-cyan-800' => $loop->even, 'bg-emerald-600' => $loop->odd
+                ])>
                     &nbsp;
                 </div>
                 
-                <h4 class="{{ ift_generate_html_class(['blog-title', 'text-xl' => !$loop->first, 'text-xl2' => $loop->first]) }}">{{ $blog->title }}</h4>
-                
+                <h4 @class(['blog-title',
+                 'text-xl' => !$loop->first,
+                 'text-xl2' => $loop->first])">{{ $blog->title }}</h4>
+
                 @auth
                     <p class="blog-meta text-right italic border-b border-gray-400">
                         Created {{ $blog->diffForHumans() }}
