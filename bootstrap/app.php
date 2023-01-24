@@ -41,7 +41,7 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
-require_once './helpers.php';
+require_once  __DIR__ . DIRECTORY_SEPARATOR . '/helpers.php';
 
 /*
 |--------------------------------------------------------------------------
