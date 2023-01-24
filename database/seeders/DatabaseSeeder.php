@@ -23,5 +23,10 @@ class DatabaseSeeder extends Seeder
                 return ['publisher_id', $user->id];
             }))
             ->create();
+
+
+      // Seed users without blogs       
+      User::factory(5)
+        ->create();
     }
 }
