@@ -7,7 +7,10 @@
         @foreach ($blogs as $blog)
             <li>
                 <a class="block" href="#">
-                    {{ Str::limit($blog->title, 70, '...') }}
+                    {{ Str::limit($blog->title, 70, '...') }} 
+                    <em class="text-gray-700 ml-4">
+                        {{ $blog->published_at->format('D, M dS, Y') }}
+                    </em>
                 </a>
             </li>
         @endforeach

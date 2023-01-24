@@ -56,7 +56,7 @@
                         Author: {{ $blog->publisher->name }}
                     </span>
                     <span>
-                        Created {{ $blog->diffForHumans() }}
+                        Created {{ $blog->published_at->diffForHumans() }}
                     </span>
                 </p>
                 @endguest
