@@ -27,7 +27,7 @@ class BlogFactory extends Factory
         $title = fake()->words(10, true);
         return [
             'title' => $title,
-            'descripption' => fake()->sentences(10, true),
+            'description' => fake()->sentences(10, true),
             'published_at' => Carbon::now()->subDays(random_int(2, 4)),
             'publisher_id' => 0,
             'slug' => Str::slug($title)
@@ -40,10 +40,22 @@ class BlogFactory extends Factory
             return [
                 'title' => $title,
                 'slug' => Str::slug($title),
-                'descripption' => fake()->sentences(10, true),
+                'description' => fake()->sentences(10, true),
                 'published_at' => Arr::get($attributes, 'published_at', Carbon::now()->subDays(random_int(2, 4))),
                 'publisher_id' => Arr::get($attributes, 'user_id', Arr::get($attributes, 'publisher_id')),
             ];
        });
+    }
+
+    public function withoutSlug() {
+        return $this->state(function ($attributes) {
+            $title = fake()->words(10, true);
+            return [
+                'title' => $title,
+                'description' => fake()->sentences(10, true),
+                'published_at' => Arr::get($attributes, 'published_at', Carbon::now()->subDays(random_int(2, 4))),
+                'publisher_id' => Arr::get($attributes, 'user_id', Arr::get($attributes, 'publisher_id')),
+            ];
+        });
     }
 }
