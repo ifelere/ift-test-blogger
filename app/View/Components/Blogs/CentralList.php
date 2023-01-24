@@ -31,6 +31,8 @@ class CentralList extends Component
         $authenticated = Auth::check();
         $limit = config('view.blogs.central_list_limit', 10);
         $blogs = $this->repository->findAll(!$authenticated)->take($limit)->get();
-        return view('components.blogs.central-list');
+        return view('components.blogs.central-list', [
+            'blogs' => $blogs
+        ]);
     }
 }

@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(20)->hasMany(
+        User::factory(20)->hasBlogs(
             Blog::factory()->count(random_int(10, 20))
             ->state(function (array $attributes, User $user) {
                 return ['publisher_id', $user->id];
