@@ -16,7 +16,9 @@ class Blog extends Model
     protected $fillable = ['title', 'description', 'published_at', 'slug'];
 
     protected $casts = [
-        'published_at' => 'datetime'
+        'published_at' => 'datetime',
+        'earliest_publish_date' => 'datetime',
+        'latest_publish_date' => 'datetime'
     ];
 
     public function publisher() {

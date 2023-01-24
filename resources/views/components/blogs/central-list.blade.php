@@ -1,5 +1,6 @@
 @php
     use Illuminate\Support\Str;
+    use Auth;
 @endphp
 <div>
    
@@ -23,7 +24,10 @@
         <x-search-form :url="route($searchRoute)"></x-search-form>
         <div class="grid grid-cols-1 gap-y-2 blogs-central-list divide-y   divide-gray-600">
             @foreach ($blogs as $blog)
-            <a href="{{ route($blogRoute, $blog) }}" class="block cursor-pointer">
+            @php
+                $route_args = Auth::check() ? ['blog' => $blog->id] : ['blog' => $blog->slug];
+            @endphp
+            <a href="{{ route($blogRoute, $route_args) }}" class="block cursor-pointer">
             <div>
                 <div @class([
                     'w-full', 'h-[100px]' => !$loop->first,
@@ -39,7 +43,7 @@
 
                 @auth
                     <p class="blog-meta text-right italic border-b border-gray-400">
-                        Created {{ $blog->diffForHumans() }}
+                        Created {{ $blog->published_at->diffForHumans() }}
                     </p>
                 @endauth
 

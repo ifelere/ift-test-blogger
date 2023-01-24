@@ -1,11 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
+        <x-blogs.stats></x-blogs.stats>
     </x-slot>
-
-    <div class="py-12">
-       
+    <div class="md:flex flex-row dark:text-white">
+        <div class="md:w-2/3 md:pr-4">
+            <x-blogs.central-list :searchRoute="'admin.blogs.index'" :blogRoute="'admin.blogs.show'"></x-blogs.central-list>
+        </div>
+        <div class="md:w-1/3 bg-white text-gray-600">
+            <x-blogs.sidebar-list  :blogRoute="'admin.blogs.show'"></x-blogs.sidebar-list>
+        </div>
     </div>
 </x-app-layout>
