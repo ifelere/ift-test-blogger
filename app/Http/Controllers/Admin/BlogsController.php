@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NewBlogRequest;
 use Illuminate\Http\Request;
 
 class BlogsController extends Controller
@@ -33,9 +34,14 @@ class BlogsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NewBlogRequest $request)
     {
-        //
+        $request->store();
+        return redirect()->route('admin.blogs.index')
+                            ->with([
+                                'flash_message' => 'New blog has been added',
+                                'flash_type' => 'success'
+                            ]);
     }
 
     /**
