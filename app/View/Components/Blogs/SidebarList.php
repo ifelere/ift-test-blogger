@@ -16,16 +16,18 @@ class SidebarList extends Component
     public $blogRoute;
     public $blogs;
     private $repository;
+    private $exclude;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(BlogRepository $repository, $blogRoute)
+    public function __construct(BlogRepository $repository, $blogRoute, $exludeId = NULL)
     {
         $this->repository = $repository;
         $this->blogRoute = $blogRoute;
+        $this->exclude = $exludeId;
     }
 
     /**
@@ -37,8 +39,13 @@ class SidebarList extends Component
     {
         // Always use 'latest' sorting for this list and ignre use-supplied sort key
 
-        $this->blogs = $this->repository->findAll(false, false)
-            ->reorder('created_at', 'desc')
+        $query = $this->repository->findAll(false, false);
+
+        if (!is_null($this->exclude)) {
+            $query = $query->where('id', '<>', $this->exclude);
+        }
+
+        $this->blogs = $query->reorder('created_at', 'desc')
             ->paginate(10);
 
         return view('components.blogs.sidebar-list');
