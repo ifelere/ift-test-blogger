@@ -29,7 +29,7 @@ class WelcomePageTest extends DuskTestCase
             $this->loginAs($user);
 
             $browser->visit(new WelcomePage())
-            ->assetNotSee('Author:');
+            ->assertNotSee('Author:');
 
         });
 
