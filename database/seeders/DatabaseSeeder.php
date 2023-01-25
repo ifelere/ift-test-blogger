@@ -5,6 +5,9 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+use App\Models\User;
+use App\Models\Blog;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -14,11 +17,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        User::factory(20)->hasBlogs(
+            Blog::factory()->count(random_int(10, 20))
+            ->state(function (array $attributes, User $user) {
+                return ['publisher_id', $user->id];
+            }))
+            ->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+
+      // Seed users without blogs       
+      User::factory(5)
+        ->create();
     }
 }

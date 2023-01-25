@@ -40,5 +40,17 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_system' => 'boolean'
     ];
+
+
+    public function blogs() {
+        return $this->hasMany(Blog::class, 'publisher_id');
+    }
+
+    public function scopeSystem($builder) {
+        return $builder->where(
+            'is_system', true
+        );
+    }
 }

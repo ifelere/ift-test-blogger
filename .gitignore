@@ -18,4 +18,5 @@ yarn-error.log
 /.vscode
 /*.txt
 .env.dusk.local
+*.local
 .env.testing
