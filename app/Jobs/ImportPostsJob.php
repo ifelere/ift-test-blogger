@@ -11,10 +11,6 @@ use Illuminate\Queue\SerializesModels;
 
 use Illuminate\Support\Str;
 
-use Illuminate\Support\Facades\Hash;
-
-use Illuminate\Support\Facades\Log;
-
 use Illuminate\Support\Facades\Http;
 
 use Illuminate\Support\Carbon;
@@ -60,14 +56,12 @@ class ImportPostsJob implements ShouldQueue
             throw new Exception('Attached user does not have system permission');
         }
         $response = Http::get(config('posts.import.url'));
-        
+
         if (!$response->ok()) {
             throw new Exception('Fetching from exteral post API failed');
         }
 
         $array_result = $response->json();
-
-        $count = [0];
 
         // Wrap every thing in a transaction
 
