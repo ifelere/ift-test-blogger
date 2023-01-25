@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\Admin\BlogsController as AdminBlogsController;
+use App\Http\Controllers\SystemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,10 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('blogs', AdminBlogsController::class);
+    });
+
+    Route::middleware(['system'])->group(function () {
+        Route::post('/system/import', [SystemController::class, 'importPosts']);
     });
 });
 

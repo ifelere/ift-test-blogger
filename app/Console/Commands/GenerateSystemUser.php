@@ -52,14 +52,14 @@ class GenerateSystemUser extends Command
 
         $user->is_system = true;
 
-        $user->safeOrFail();
+        $user->saveOrFail();
 
         return Command::SUCCESS;
     }
 
 
     private function askForEmail() {
-        $default_email = Str::random(8) . 'iftblogger.app';
+        $default_email = Str::random(8) . '@iftblogger.app';
         return $this->ask('Email?', $default_email);
     }
 

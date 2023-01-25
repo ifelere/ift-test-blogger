@@ -25,7 +25,7 @@ use Exception;
 use App\Models\User;
 
 
-class ImportPostsJob implements ShouldQueue
+class ImportPostsJob implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
