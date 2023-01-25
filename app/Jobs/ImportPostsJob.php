@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\DB;
 
 use Exception;
 
+use App\Models\User;
 
 
 class ImportPostsJob implements ShouldQueue
@@ -55,7 +56,11 @@ class ImportPostsJob implements ShouldQueue
      */
     public function handle()
     {
+        if (!static::isSystemUser($this->userId)) {
+            throw new Exception('Attached user does not have system permission');
+        }
         $response = Http::get(config('posts.import.url'));
+        
         if (!$response->ok()) {
             throw new Exception('Fetching from exteral post API failed');
         }
@@ -99,6 +104,15 @@ class ImportPostsJob implements ShouldQueue
             });
         });
     }
+
+    private static function isSystemUser($id): bool {
+        $g = User::where([
+            'is_system' => true,
+            'id' => $id
+        ])->selectRaw('1')->first();
+        return !is_null($g);
+    }
+
 
     public function getNumberOfImportedRecords(): int {
         return $this->count;

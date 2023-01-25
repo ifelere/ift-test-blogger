@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\ImportPostsJob;
 use Illuminate\Console\Command;
 
 use Illuminate\Contracts\Console\Isolatable;
@@ -60,51 +61,13 @@ class ImportPostsCommand extends Command implements Isolatable
 
     private function handleImportWithUser($userId) {
         $this->info('Importing posts...');
-        $response = Http::get(config('posts.import.url'));
-        if (!$response->ok()) {
-            throw new Exception('Fetching from exteral post API failed');
+        $job = new ImportPostsJob($userId);
+        $job->handle();
+        foreach ($job->getSkippedTitles() as $title) {
+            $this->warn("'$title' was skipped");
         }
-
-        $array_result = $response->json();
-
-        $count = [0];
-
-        // Wrap every thing in a transaction
-
-        DB::transaction(function () use ($count, $userId, $array_result) {
-
-            $posts = $array_result['articles'];
-
-            /**
-             * No need for model events that does another db query to ensure slug i unique.
-             * This is being taken care of here to avoid performance penalty
-             */
-            Blog::withoutEvents(function () use ($posts, $count, $userId) {
-                foreach ($posts as $post) {
-                    $slug = Str::slug($post['title']);
-
-                    $exist = Blog::where('slug', 'like', $slug)->selectRaw('1')->first();
-                    // Don't add if the blug exists before
-                    if (!is_null($exist)) {
-                        $this->warn("'{$post['title']}' will not be added because it already exists");
-                        continue;
-                    }
-
-                    Blog::create([
-                        'title' => $post['title'],
-                        'slug' => $slug,
-                        'description' => $post['description'],
-                        'published_at' => Carbon::parse($post['publishedAt']),
-                        'publisher_id' => $userId
-                    ]);
-
-                    $count[0] = $count[0] + 1;
-                }
-
-            });
-        });
-
-        $this->info("{$count[0]} post(s) were imported");
+        $count = $job->getNumberOfImportedRecords();
+        $this->info("$count record(s) were imported");
     }
 
     /**
