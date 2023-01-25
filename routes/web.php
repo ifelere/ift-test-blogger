@@ -39,4 +39,6 @@ Route::middleware('auth')->group(function () {
     });
 });
 
+Route::feeds();
+
 require __DIR__.'/auth.php';

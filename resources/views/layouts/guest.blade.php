@@ -17,6 +17,8 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <x-feed-links />
     </head>
     <body class="font-sans text-gray-900 antialiased">
         @include('layouts.guest-navigation')
