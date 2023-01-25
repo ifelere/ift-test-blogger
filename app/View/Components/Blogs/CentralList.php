@@ -13,17 +13,19 @@ class CentralList extends Component
     public $searchRoute;
     public $blogRoute;
     public $blogs;
+    public $showSortFields;
     private $repository;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(BlogRepository $repository, $blogRoute, $searchRoute)
+    public function __construct(BlogRepository $repository, $blogRoute, $searchRoute, $showSortFields = false)
     {
         $this->repository = $repository;
         $this->blogRoute = $blogRoute;
         $this->searchRoute = $searchRoute;
+        $this->$showSortFields = $showSortFields;
     }
 
     /**

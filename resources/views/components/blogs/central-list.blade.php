@@ -21,12 +21,34 @@
     </div>
     @else
         <x-search-form :url="route($searchRoute)"></x-search-form>
-        <div class="grid grid-cols-1 gap-y-2 blogs-central-list divide-y  mt-4">
+        <form id="sort_form" action="{{ route($searchRoute) }}" class="mt-4 flex flex-row justify-end">
+            <select id="ctrl_sort" name="sort">
+                <option value="">(select attribute to sort by)</option>
+                @foreach (['date desc' => 'Show latest blog first', 'date asc' => 'Show ealiest blog firist'] as $sort_expression => $text)
+                    <option value="{{ $sort_expression }}" @selected(Request::get('sort') == $sort_expression)>
+                        {{ $text }}
+                    </option>
+                @endforeach
+            </select>
+
+            @push('scripts')
+                <script>
+                    window.addEventListener('load', function () {
+                        document.getElementById('ctrl_sort').onchange = function (e) {
+                            if (e.currentTarget.value) {
+                                document.getElementById('sort_form').submit();
+                            }
+                        };
+                    });
+                </script>
+            @endpush
+        </form>
+        <div class="mt-4">
             @foreach ($blogs as $blog)
             @php
                 $route_args = Auth::check() ? ['blog' => $blog->id] : ['blog' => $blog->slug];
             @endphp
-            <a href="{{ route($blogRoute, $route_args) }}" data-id="{{ $blog->id }}" class="block cursor-pointer">
+            <a href="{{ route($blogRoute, $route_args) }}" data-id="{{ $blog->id }}" class="block cursor-pointer mb-16">
             <div>
                 <div @class([
                     'w-full', 'h-[100px]' => !$loop->first,
