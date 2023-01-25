@@ -22,10 +22,9 @@
     @else
         <x-search-form :url="route($searchRoute)"></x-search-form>
         <form id="sort_form" action="{{ route($searchRoute) }}" class="mt-4 flex flex-row justify-end">
-            <select id="ctrl_sort" name="sort">
-                <option value="">(select attribute to sort by)</option>
+            <select id="ctrl_sort" name="sort" class="text-black">
                 @foreach (['date desc' => 'Show latest blog first', 'date asc' => 'Show ealiest blog firist'] as $sort_expression => $text)
-                    <option value="{{ $sort_expression }}" @selected(Request::get('sort') == $sort_expression)>
+                    <option value="{{ $sort_expression }}" @selected(Request::get('sort', 'date desc') == $sort_expression)>
                         {{ $text }}
                     </option>
                 @endforeach
@@ -66,7 +65,7 @@
 
                 @auth
                     <p class="blog-meta text-right italic border-b border-gray-400">
-                        Created {{ $blog->published_at->diffForHumans() }}
+                        Published {{ $blog->published_at->diffForHumans() }}
                     </p>
                 @endauth
 

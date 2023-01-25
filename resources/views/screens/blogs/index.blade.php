@@ -1,5 +1,5 @@
-<x-guest-layout>
-    <div class="md:flex flex-row dark:text-white">
+<x-guest-layout :fullWidth="true">
+    <div class="md:flex flex-row pt-6">
         <div class="md:w-2/3 md:pr-4">
             <x-blogs.central-list :searchRoute="'blogs.index'" :blogRoute="'blogs.show'"></x-blogs.central-list>
         </div>

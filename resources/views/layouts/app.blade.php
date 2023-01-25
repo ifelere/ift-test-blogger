@@ -22,6 +22,7 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+            @include('includes.flash')
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -35,7 +36,7 @@
 
             <!-- Page Content -->
             <main>
-                @include('includes.flash')
+               
                 <div class="container mx-auto">
                     {{ $slot }}
                 </div>
