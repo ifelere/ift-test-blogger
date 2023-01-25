@@ -1,15 +1,24 @@
 <x-app-layout>
-    <x-slot:header>
+    <x-slot:title>
         {{ $blog->title }}
+    </x-slot:title>
+    <x-slot:header>
+        <h4 class="text-2xl mb-4">
+            {{ $blog->title }}
+        </h4>
+        
+        <div class="text-right text-sm">
+            Published {{ $blog->published_at->format('D M dS, Y') }}  ({{ $blog->published_at->diffForHumans() }})
+        </div>
     </x-slot:header>
-    <div class="md:flex flex-row dark:text-white">
+    <div class="md:flex flex-row pt-8">
         <div class="md:w-2/3 md:pr-4">
-            <div class="font-serif">
-                @foreach (preg_split(/\r|\n/, $blog->description) as $line)
+            <div class="font-serif p-8">
+                @foreach (preg_split('/\r|\n/', $blog->description) as $line)
                     @if (empty($line))
                         @continue
                     @endif
-                    <p>
+                    <p class="mb-2">
                         {{ $line }}
                     </p>
                 @endforeach

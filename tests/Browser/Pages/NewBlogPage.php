@@ -33,17 +33,17 @@ class NewBlogPage extends Page
 
     public function submitWithValidationErrors(Browser $browser) {
         
-        return $browser->value('title', $this->faker->words(2, true))
-                        ->click('@submit_button')
+        return $browser->type('title', $this->faker->words(2, true))
+                        ->press('@submit_button')
                         ->on(new NewBlogPage())
                         ->assertPresent('.error');
     }
 
     public function submitSuccessfully(Browser $browser) {
         
-        return $browser->value('title', $this->faker->words(2, true))
-                        ->value('description', $this->faker->paragraphs(4, true))
-                        ->click('@submit_button')
+        return $browser->type('title', $this->faker->words(2, true))
+                        ->type('description', $this->faker->paragraphs(4, true))
+                        ->press('@submit_button')
                         ->on(new AdminBlogsPage());
     }
 

@@ -32,8 +32,9 @@ class NewBlogRequest extends FormRequest
     }
 
     public function store() {
-        return $this->user()->blogs()->create($this->safe()->only(['title', 'description']), [
-            'published_at' => Carbon::now()
-        ]);
+        return $this->user()->blogs()->create(array_merge(
+            $this->safe()->only(['title', 'description']),
+            ['published_at' => Carbon::now()]
+        ));
     }
 }

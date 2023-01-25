@@ -21,12 +21,12 @@
     </div>
     @else
         <x-search-form :url="route($searchRoute)"></x-search-form>
-        <div class="grid grid-cols-1 gap-y-2 blogs-central-list divide-y   divide-gray-600">
+        <div class="grid grid-cols-1 gap-y-2 blogs-central-list divide-y  mt-4">
             @foreach ($blogs as $blog)
             @php
                 $route_args = Auth::check() ? ['blog' => $blog->id] : ['blog' => $blog->slug];
             @endphp
-            <a href="{{ route($blogRoute, $route_args) }}" class="block cursor-pointer">
+            <a href="{{ route($blogRoute, $route_args) }}" data-id="{{ $blog->id }}" class="block cursor-pointer">
             <div>
                 <div @class([
                     'w-full', 'h-[100px]' => !$loop->first,
@@ -36,9 +36,11 @@
                     &nbsp;
                 </div>
                 
-                <h4 @class(['blog-title',
-                 'text-xl' => !$loop->first,
-                 'text-xl2' => $loop->first])">{{ $blog->title }}</h4>
+                <h4 @class([
+                    'blog-title',
+                    'text-xl' => !$loop->first,
+                    'text-xl2' => $loop->first
+                    ])">{{ $blog->title }}</h4>
 
                 @auth
                     <p class="blog-meta text-right italic border-b border-gray-400">

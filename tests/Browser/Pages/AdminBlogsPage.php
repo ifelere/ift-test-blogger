@@ -25,10 +25,8 @@ class AdminBlogsPage extends Page
     }
 
     public function openBlog(Browser $browser, $blog) {
-        return $browser->canSeeIn('@link', $blog->title)
-                ->with('@container', function ($el) use ($blog) {
-                    $el->clickLink($blog->title);
-                })
+        return $browser->assertPresent(sprintf('a[data-id="%s"]', $blog->id))
+                ->click(sprintf('a[data-id="%s"]', $blog->id))
                 ->on(new AdminBlogDetailPage($blog));
     }
 
@@ -40,8 +38,8 @@ class AdminBlogsPage extends Page
     public function elements(): array
     {
         return [
-            '@container' => 'div > div#blogs-container',
-            '@link' => 'div > div#blogs-container a',
+            '@container' => 'div > div.blogs-central-list',
+            '@link' => 'div > div.blogs-central-list a',
         ];
     }
 }

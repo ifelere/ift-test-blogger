@@ -1,4 +1,7 @@
 <x-app-layout>
+    <x-slot:title>
+        New Blog
+    </x-slot:title>
     <x-slot name="header">
         <x-blogs.stats></x-blogs.stats>
         <div class="text-right pr-4">
@@ -7,7 +10,7 @@
             </a>
         </div>
     </x-slot>
-    <div class="md:flex flex-row dark:text-white">
+    <div class="md:flex flex-row dark:text-white pt-8">
         <div class="md:w-2/3 md:pr-4">
             <x-blogs.central-list :searchRoute="'admin.blogs.index'" :blogRoute="'admin.blogs.show'"></x-blogs.central-list>
         </div>

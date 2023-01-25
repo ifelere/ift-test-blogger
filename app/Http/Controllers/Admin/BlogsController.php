@@ -4,10 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NewBlogRequest;
+use App\Repositories\BlogRepository;
 use Illuminate\Http\Request;
 
 class BlogsController extends Controller
 {
+
+    private $repostory;
+
+    public function __construct(BlogRepository $repository)
+    {
+        $this->repository = $repository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -52,7 +60,7 @@ class BlogsController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admin.blogs.show', ['blog' => $this->repository->find($id)]);
     }
 
     /**

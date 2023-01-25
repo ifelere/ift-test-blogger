@@ -36,9 +36,9 @@ class DashboardPage extends Page
         return [
             '@add_link' => 'a.add-blog',
             '@central_blogs' => 'div > div.blogs-central-list',
-            '@sidebar_blogs' => 'div > ul.sidebar-blog-list',
+            '@sidebar_blogs' => 'div > .sidebar-blog-list',
             '@central_blogs_anchor' => 'div > div.blogs-central-list a',
-            '@sidebar_blogs_anchor' => 'div > ul.sidebar-blog-list a',
+            '@sidebar_blogs_anchor' => 'div > .sidebar-blog-list a',
         ];
     }
 }

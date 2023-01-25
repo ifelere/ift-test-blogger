@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-guest-layout>
     <div class="md:flex flex-row dark:text-white">
         <div class="md:w-2/3 md:pr-4">
             <x-blogs.central-list :searchRoute="'blogs.index'" :blogRoute="'blogs.show'"></x-blogs.central-list>
@@ -9,4 +9,4 @@
     </div>
 
    
-</x-app-layout>
+</x-guest-layout>

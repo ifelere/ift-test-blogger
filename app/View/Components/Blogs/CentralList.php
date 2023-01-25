@@ -34,7 +34,7 @@ class CentralList extends Component
     public function render()
     {
         $authenticated = Auth::check();
-        $limit = config('view.blogs.central_list_limit', 10);
+        $limit = config('view.blogs.central_list_limit', 5);
         $this->blogs = $this->repository->findAll(!$authenticated)->take($limit)->get();
         return view('components.blogs.central-list');
     }

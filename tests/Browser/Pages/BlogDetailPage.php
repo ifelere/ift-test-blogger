@@ -10,7 +10,7 @@ class BlogDetailPage extends Page
     private $blog;
     public function __construct($blog)
     {
-        $this->blog;
+        $this->blog = $blog;
     }
     /**
      * Get the URL for the page.
@@ -27,7 +27,7 @@ class BlogDetailPage extends Page
     {
         $browser->assertPathIs($this->url())
                 ->assertTitleContains($this->blog->title)
-                ->assertSeeIn('div h4', $this->blog->title);;
+                ->assertSeeIn('div h4', $this->blog->title);
     }
 
     /**

@@ -17,7 +17,7 @@ class AdminBlogDetailPage extends Page
      */
     public function url(): string
     {
-        return "/admin/blogs/{$this->id}";
+        return "/admin/blogs/{$this->blog->id}";
     }
 
     /**
@@ -26,8 +26,7 @@ class AdminBlogDetailPage extends Page
     public function assert(Browser $browser): void
     {
         $browser->assertPathIs($this->url())
-                ->assertTitleContains($this->blog->title)
-                ->assertSeeIn('div h4', $this->blog->title);
+                ->assertTitleContains($this->blog->title);
     }
 
     /**

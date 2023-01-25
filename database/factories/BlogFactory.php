@@ -24,7 +24,7 @@ class BlogFactory extends Factory
      */
     public function definition()
     {
-        $title = fake()->words(6, true);
+        $title = Str::ucfirst(fake()->words(6, true));
         return [
             'title' => $title,
             'description' => fake()->paragraph(3, true),
@@ -36,7 +36,7 @@ class BlogFactory extends Factory
 
     public function publishedBy() {
        return $this->state(function ($attributes) {
-            $title = fake()->words(6, true);
+        $title = Str::ucfirst(fake()->words(6, true));
             return [
                 'title' => $title,
                 'slug' => Str::slug($title),
@@ -49,7 +49,7 @@ class BlogFactory extends Factory
 
     public function withoutSlug() {
         return $this->state(function ($attributes) {
-            $title = fake()->words(6, true);
+            $title = Str::ucfirst(fake()->words(6, true));
             return [
                 'title' => $title,
                 'description' => fake()->paragraph(10, true),

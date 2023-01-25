@@ -34,7 +34,9 @@
             <!-- Page Content -->
             <main>
                 @include('includes.flash')
-                {{ $slot }}
+                <div class="container mx-auto">
+                    {{ $slot }}
+                </div>
             </main>
         </div>
     </body>

@@ -4,6 +4,7 @@ namespace Tests\Browser\Pages;
 
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\Page;
+use Illuminate\Support\Str;
 
 class GuestBlogsPage extends Page
 {
@@ -34,14 +35,13 @@ class GuestBlogsPage extends Page
             '@central_blogs' => 'div > div.blogs-central-list',
             '@sidebar_blogs' => 'div > ul.sidebar-blog-list',
             '@central_blogs_anchor' => 'div > div.blogs-central-list a',
-            '@sidebar_blogs_anchor' => 'div > ul.sidebar-blog-list a',
+            '@sidebar_blogs_anchor' => 'div > .sidebar-blog-list a',
         ];
     }
 
     public function openBlog(Browser $browser, $blog) {
-        return $browser->assertSeeIn('@central_blogs_anchor', $blog->title)
-        ->with('@central_blogs', function ($el) use ($blog) {
-            $el->clickLink($blog->title);
-        })->on(new BlogDetailPage($blog));
+        return $browser->assertSeeIn('@central_blogs_anchor', Str::substr($blog->title, 0, 20))
+        ->click("div.blogs-central-list a[data-id='{$blog->id}']")
+        ->on(new BlogDetailPage($blog));
     }
 }
