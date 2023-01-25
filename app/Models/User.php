@@ -47,4 +47,10 @@ class User extends Authenticatable
     public function blogs() {
         return $this->hasMany(Blog::class, 'publisher_id');
     }
+
+    public function scopeSystem($builder) {
+        return $builder->where(
+            'is_system', true
+        );
+    }
 }
