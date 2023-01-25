@@ -19,7 +19,7 @@ class Blog extends Model implements Feedable
     use HasFactory;
     
 
-    protected $fillable = ['title', 'description', 'published_at', 'slug'];
+    protected $fillable = ['title', 'description', 'published_at', 'publisher_id', 'slug'];
 
     protected $casts = [
         'published_at' => 'datetime',

@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
 
+
+
 class GenerateSystemUser extends Command
 {
     /**
